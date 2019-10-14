@@ -1,9 +1,13 @@
 package jpabook.model;
 
+import jpabook.model.entity.Member;
+import jpabook.model.entity.Order;
+
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
+import java.util.Arrays;
 
 /**
  * Created by 1001218 on 15. 4. 5..
@@ -19,9 +23,17 @@ public class Main {
         EntityTransaction tx = em.getTransaction(); //트랜잭션 기능 획득
 
         try {
-
             tx.begin(); //트랜잭션 시작
             //TODO 비즈니스 로직
+            Member member = new Member();
+            em.persist(member);
+
+            Order order1 = new Order();
+            Order order2 = new Order();
+            order1.setMember(member);
+            order2.setMember(member);
+            em.persist(order1);
+            em.persist(order2);
             tx.commit();//트랜잭션 커밋
 
         } catch (Exception e) {
